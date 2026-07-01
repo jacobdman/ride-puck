@@ -1,6 +1,6 @@
 # Development Setup
 
-Initial setup guide for the ScoutOS monorepo. This covers environment preparation only — not full build, flash, or device testing.
+Initial setup guide for the RidePuck monorepo. This covers environment preparation only — not full build, flash, or device testing.
 
 ## 1. Clone and branch
 
@@ -9,7 +9,7 @@ git clone https://github.com/jacobdman/ride-puck.git
 cd ride-puck
 ```
 
-## 2. Mobile app (`mobile/scoutos_app`)
+## 2. Mobile app (`mobile/ridepuck_app`)
 
 ### Prerequisites
 
@@ -21,9 +21,9 @@ cd ride-puck
 ### Bootstrap
 
 ```bash
-cd mobile/scoutos_app
+cd mobile/ridepuck_app
 flutter pub get
-cp .env.example .env
+cp .env.example .env   # optional — app falls back to .env.example
 ```
 
 Edit `.env` and set your Mapbox token:
@@ -32,12 +32,10 @@ Edit `.env` and set your Mapbox token:
 MAPBOX_ACCESS_TOKEN=pk.your_token_here
 ```
 
-### iOS project generation
-
-If `ios/` is not yet generated:
+Platform files (`ios/`, `android/`, etc.) are already generated. To regenerate:
 
 ```bash
-flutter create . --org com.scoutos --project-name scoutos_app
+flutter create . --org com.ridepuck --project-name ridepuck_app
 flutter pub get
 ```
 
@@ -47,7 +45,7 @@ flutter pub get
 flutter run -d <ios-device-id>
 ```
 
-## 3. Firmware (`firmware/scoutos_display`)
+## 3. Firmware (`firmware/ridepuck_display`)
 
 ### Prerequisites
 
@@ -58,7 +56,7 @@ flutter run -d <ios-device-id>
 ### Bootstrap
 
 ```bash
-cd firmware/scoutos_display
+cd firmware/ridepuck_display
 idf.py set-target esp32s3
 idf.py menuconfig   # optional: configure display pins / BLE name
 ```

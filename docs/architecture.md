@@ -2,11 +2,11 @@
 
 ## Overview
 
-ScoutOS is a two-part system: a phone companion app and an ESP32-S3 round display. The phone owns all complex logic; the display is a thin BLE client that renders glanceable ride information.
+RidePuck is a two-part system: a phone companion app and an ESP32-S3 round display. The phone owns all complex logic; the display is a thin BLE client that renders glanceable ride information.
 
 ## Components
 
-### Mobile App (`mobile/scoutos_app`)
+### Mobile App (`mobile/ridepuck_app`)
 
 | Concern | Technology |
 |---------|------------|
@@ -22,7 +22,7 @@ Responsibilities:
 - BLE connection management and auto-reconnect
 - Settings and future OTA coordination
 
-### Firmware (`firmware/scoutos_display`)
+### Firmware (`firmware/ridepuck_display`)
 
 | Concern | Technology |
 |---------|------------|
@@ -53,7 +53,7 @@ Responsibilities:
 |--------|---------|---------|
 | Primary Ride | Active route + moving | Speed, maneuver arrow, distance, street name |
 | No Route | Connected, no active navigation | Speed, "No Route", connection status |
-| Waiting | Boot / no phone | "ScoutOS", "Waiting for phone..." |
+| Waiting | Boot / no phone | "RidePuck", "Waiting for phone..." |
 | Error | BLE disconnect | "Connection Lost", "Reconnecting" |
 
 ## Long-Term Normalized State

@@ -1,6 +1,6 @@
-# ScoutOS
+# RidePuck
 
-A minimalist motorcycle dashboard companion for the 2023 Indian Scout Bobber. ScoutOS pairs an iPhone app with a circular ESP32-S3 display over Bluetooth Low Energy to show speed, turn-by-turn navigation, distance to the next maneuver, and ETA — without replacing the stock gauge or reading motorcycle ECU data in V1.
+A minimalist motorcycle dashboard companion for the 2023 Indian Scout Bobber. RidePuck pairs an iPhone app with a circular ESP32-S3 display over Bluetooth Low Energy to show speed, turn-by-turn navigation, distance to the next maneuver, and ETA — without replacing the stock gauge or reading motorcycle ECU data in V1.
 
 ## Architecture
 
@@ -18,8 +18,8 @@ The phone handles GPS, routing, ETA, settings, and updates. The display receives
 
 | Path | Description |
 |------|-------------|
-| `mobile/scoutos_app/` | Flutter iOS companion app |
-| `firmware/scoutos_display/` | ESP-IDF firmware for the round display |
+| `mobile/ridepuck_app/` | Flutter iOS companion app |
+| `firmware/ridepuck_display/` | ESP-IDF firmware for the round display |
 | `shared/` | BLE protocol schema and shared types |
 | `docs/` | Architecture, protocol, and setup guides |
 

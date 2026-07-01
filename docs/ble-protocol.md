@@ -13,7 +13,7 @@ Binary encoding may replace JSON in a future revision if bandwidth becomes a con
 
 | UUID | Role | Notes |
 |------|------|-------|
-| `0000FE00-0000-1000-8000-00805F9B34FB` | ScoutOS Service | Placeholder — finalize before hardware bring-up |
+| `0000FE00-0000-1000-8000-00805F9B34FB` | RidePuck Service | Placeholder — finalize before hardware bring-up |
 | `0000FE01-0000-1000-8000-00805F9B34FB` | Dashboard State Characteristic | Notify / write from phone |
 
 > UUIDs are placeholders for initial development. Assign official 128-bit UUIDs before production.

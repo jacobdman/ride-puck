@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://scoutos.dev/schemas/dashboard-state/v1",
-  "title": "ScoutOS Dashboard State",
+  "$id": "https://ridepuck.dev/schemas/dashboard-state/v1",
+  "title": "RidePuck Dashboard State",
   "description": "Versioned dashboard state sent from the phone companion app to the ESP32 display over BLE.",
   "type": "object",
   "required": ["version", "timestamp", "ride", "navigation"],
