@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ridepuck.dev/schemas/dashboard-state/v1",
+  "title": "RidePuck Dashboard State",
+  "description": "Versioned dashboard state sent from the phone companion app to the ESP32 display over BLE.",
+  "type": "object",
+  "required": ["version", "timestamp", "ride", "navigation"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Protocol version"
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix epoch timestamp in seconds"
+    },
+    "ride": {
+      "type": "object",
+      "required": ["speedMph"],
+      "additionalProperties": false,
+      "properties": {
+        "speedMph": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Current speed in miles per hour"
+        },
+        "headingDeg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 359,
+          "description": "Compass heading in degrees"
+        }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "required": ["active"],
+      "additionalProperties": false,
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Whether turn-by-turn navigation is active"
+        },
+        "maneuver": {
+          "type": "string",
+          "enum": ["left", "right", "slight-left", "slight-right", "straight", "u-turn", "arrive", "depart", "merge", "roundabout"],
+          "description": "Next maneuver type"
+        },
+        "distanceMeters": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Distance to the next maneuver in meters"
+        },
+        "instruction": {
+          "type": "string",
+          "description": "Human-readable navigation instruction"
+        },
+        "streetName": {
+          "type": "string",
+          "description": "Target street name for the next maneuver"
+        },
+        "etaMinutes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Estimated time of arrival in minutes"
+        }
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "phoneBattery": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Phone battery percentage"
+        },
+        "gpsSignal": {
+          "type": "string",
+          "enum": ["good", "fair", "poor", "none"],
+          "description": "GPS signal quality indicator"
+        }
+      }
+    }
+  }
+}

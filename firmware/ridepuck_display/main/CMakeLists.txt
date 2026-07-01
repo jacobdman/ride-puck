@@ -1,0 +1,13 @@
+idf_component_register(
+    SRCS
+        "main.c"
+        "dashboard_state.c"
+        "ble_server.c"
+        "ui/ui_manager.c"
+    INCLUDE_DIRS
+        "."
+        "ui"
+    REQUIRES
+        bt
+        nvs_flash
+)
