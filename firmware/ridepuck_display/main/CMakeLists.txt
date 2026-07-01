@@ -3,11 +3,23 @@ idf_component_register(
         "main.c"
         "dashboard_state.c"
         "ble_server.c"
+        "display_driver.c"
+        "mock_data.c"
         "ui/ui_manager.c"
+        "ui/screens/screen_waiting.c"
+        "ui/screens/screen_error.c"
+        "ui/screens/screen_no_route.c"
+        "ui/screens/screen_ride.c"
     INCLUDE_DIRS
         "."
         "ui"
+        "ui/screens"
     REQUIRES
         bt
         nvs_flash
+        esp_lcd
+        driver
+        esp_timer
+    PRIV_REQUIRES
+        esp_psram
 )

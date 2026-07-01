@@ -52,24 +52,24 @@ This repo is scaffolded for development. See the setup guides before building or
 
 ## Roadmap
 
-### Phase 0 — Foundation (current)
+### Phase 0 — Foundation
 
 - [x] Monorepo scaffold (mobile, firmware, shared protocol, docs)
 - [x] Flutter project generated (`com.ridepuck.ridepuck_app`)
 - [x] BLE dashboard state schema and protocol docs
 - [x] ESP-IDF firmware skeleton with UI screen routing stubs
 
-### Phase 1 — Desk prototype
+### Phase 1 — Desk prototype (current)
 
 Goal: prove the display and phone can talk before adding real navigation.
 
-- [ ] Flash ESP32-S3 round display and bring up LVGL
-- [ ] Render static ride UI (speed, maneuver arrow, distance, street name)
-- [ ] Feed fake speed/navigation data on-device
-- [ ] Implement BLE GATT server on display
-- [ ] Implement BLE client in phone app
-- [ ] Send mock `DashboardState` from phone → display
-- [ ] Verify all four screens: waiting, no-route, ride, error/reconnecting
+- [x] Flash ESP32-S3 round display and bring up LVGL
+- [x] Render static ride UI (speed, maneuver arrow, distance, street name)
+- [x] Feed fake speed/navigation data on-device
+- [x] Implement BLE GATT server on display
+- [x] Implement BLE client in phone app
+- [x] Send mock `DashboardState` from phone → display
+- [x] Verify all four screens: waiting, no-route, ride, error/reconnecting
 
 ### Phase 2 — V1 MVP (ride-ready)
 
