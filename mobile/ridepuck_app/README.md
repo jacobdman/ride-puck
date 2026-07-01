@@ -4,7 +4,7 @@ Flutter iOS companion app for RidePuck. Handles GPS, Mapbox turn-by-turn navigat
 
 ## Status
 
-Flutter project generated with iOS, Android, and desktop platform targets. Mapbox and BLE integration are not yet implemented.
+Phase 1 desk prototype — BLE GATT client, mock dashboard streaming, and connection UI for desk testing with the ESP32 display.
 
 ## Setup
 
@@ -33,6 +33,5 @@ lib/
 ## Next Steps
 
 1. Add Mapbox Navigation SDK via native iOS bridge
-2. Implement BLE GATT client (service UUID in `docs/ble-protocol.md`)
-3. Wire live GPS speed from `geolocator`
-4. Replace mock stream with Mapbox active guidance state
+2. Wire live GPS speed from `geolocator`
+3. Replace mock stream with Mapbox active guidance state

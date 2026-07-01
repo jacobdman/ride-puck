@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dashboard_state.h"
+#include "esp_err.h"
 
 typedef enum {
     UI_SCREEN_WAITING,
@@ -13,4 +14,4 @@ typedef enum {
 esp_err_t ui_manager_init(void);
 
 /// Route to the appropriate screen based on connection and dashboard state.
-void ui_manager_update(bool ble_connected, const dashboard_state_t *state);
+void ui_manager_update(bool ble_connected, bool had_connection, const dashboard_state_t *state);

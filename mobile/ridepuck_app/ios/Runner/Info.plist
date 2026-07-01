@@ -66,5 +66,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>RidePuck needs Bluetooth to connect to your dashboard display.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>RidePuck needs Bluetooth to connect to your dashboard display.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>RidePuck uses location for GPS speed and navigation in later phases.</string>
 </dict>
 </plist>
