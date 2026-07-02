@@ -77,16 +77,20 @@ The BLE payload format is defined in:
 
 Keep mobile serialization and firmware parsing aligned with this schema.
 
-## 5. Recommended first milestone
+## 5. Recommended milestones
 
-Desk prototype sequence from the software plan:
+**No hardware yet?** Start with phone testing:
+
+1. [Phone testing guide](phone-testing.md) — Test 1: app on your iPhone with live GPS
+2. [Phone testing guide](phone-testing.md) — Test 2: Mapbox turn-by-turn + display preview
+
+**When the ESP32 display arrives**, continue with the desk prototype sequence:
 
 1. Flash ESP32-S3 and render a static LVGL screen
 2. Feed fake speed/navigation data on-device
 3. Add BLE connection and receive mock dashboard state from the phone
-4. Replace mock data with live phone GPS speed
-5. Integrate Mapbox route state
-6. Test in a car before motorcycle use
+4. Stream live phone GPS + Mapbox navigation over BLE
+5. Test in a car before motorcycle use
 
 ## 6. Environment variables
 

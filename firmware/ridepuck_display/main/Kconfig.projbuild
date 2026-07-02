@@ -1,0 +1,18 @@
+menu "RidePuck Configuration"
+
+    config RIDEPUCK_MOCK_DATA
+        bool "Enable on-device mock dashboard data"
+        default y
+        help
+            When enabled, firmware feeds mock ride/navigation state on-device
+            for desk testing without a phone connection.
+
+    config RIDEPUCK_MOCK_CYCLE_SCREENS
+        bool "Cycle mock screens (ride / no-route) for desk testing"
+        depends on RIDEPUCK_MOCK_DATA
+        default n
+        help
+            When enabled, mock data alternates between active navigation
+            and no-route states every 10 seconds.
+
+endmenu

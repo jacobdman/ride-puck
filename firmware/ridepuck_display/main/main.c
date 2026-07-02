@@ -4,20 +4,49 @@
 #include "dashboard_state.h"
 #include "esp_log.h"
 #include "esp_err.h"
+#include "mock_data.h"
 #include "nvs_flash.h"
+#include "sdkconfig.h"
 #include "ui/ui_manager.h"
 
 static const char *TAG = "ridepuck";
 static dashboard_state_t s_state;
 static bool s_ble_connected = false;
+static bool s_had_connection = false;
+
+static void refresh_ui(void)
+{
+    ui_manager_update(s_ble_connected, s_had_connection, &s_state);
+}
 
 static void on_dashboard_state_received(const char *json, size_t len)
 {
     dashboard_state_t parsed;
     if (dashboard_state_parse(json, len, &parsed)) {
         s_state = parsed;
-        ui_manager_update(s_ble_connected, &s_state);
+        ESP_LOGI(TAG, "Dashboard update: %.0f mph, nav %s", s_state.ride.speed_mph,
+                 s_state.navigation.active ? "active" : "idle");
+        refresh_ui();
+    } else {
+        ESP_LOGW(TAG, "Failed to parse dashboard JSON");
     }
+}
+
+static void on_ble_connection_changed(bool connected)
+{
+    if (connected) {
+        s_ble_connected = true;
+        s_had_connection = true;
+        ESP_LOGI(TAG, "BLE connected");
+    } else {
+        if (s_ble_connected) {
+            s_had_connection = true;
+        }
+        s_ble_connected = false;
+        ESP_LOGI(TAG, "BLE disconnected");
+    }
+
+    refresh_ui();
 }
 
 void app_main(void)
@@ -36,8 +65,13 @@ void app_main(void)
     ESP_ERROR_CHECK(ui_manager_init());
     ESP_ERROR_CHECK(ble_server_init());
     ble_server_set_dashboard_callback(on_dashboard_state_received);
+    ble_server_set_connection_callback(on_ble_connection_changed);
 
-    ui_manager_update(s_ble_connected, &s_state);
+    refresh_ui();
+
+#if CONFIG_RIDEPUCK_MOCK_DATA
+    ESP_ERROR_CHECK(mock_data_start());
+#endif
 
     ESP_LOGI(TAG, "Ready — waiting for phone connection");
 }
