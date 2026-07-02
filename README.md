@@ -28,6 +28,7 @@ The phone handles GPS, routing, ETA, settings, and updates. The display receives
 This repo is scaffolded for development. See the setup guides before building or flashing:
 
 - [Development Setup](docs/setup.md)
+- [Phone Testing (no hardware)](docs/phone-testing.md)
 - [Architecture Overview](docs/architecture.md)
 - [BLE Protocol](docs/ble-protocol.md)
 
@@ -50,6 +51,17 @@ This repo is scaffolded for development. See the setup guides before building or
 - App sends live GPS speed and next navigation instruction
 - Display handles no-route, lost-phone, and reconnecting states
 
+## Phone testing (no hardware)
+
+If you do not have the ESP32 display yet, validate on your iPhone first:
+
+| Test | Goal | Guide |
+|------|------|-------|
+| **Test 1** | App installs, live GPS speed on home screen | [docs/phone-testing.md](docs/phone-testing.md) |
+| **Test 2** | Mapbox turn-by-turn + on-phone display preview | [docs/phone-testing.md](docs/phone-testing.md) |
+
+Phase 1 firmware/BLE code is in the repo; hardware verification waits until the board arrives.
+
 ## Roadmap
 
 ### Phase 0 — Foundation
@@ -59,11 +71,11 @@ This repo is scaffolded for development. See the setup guides before building or
 - [x] BLE dashboard state schema and protocol docs
 - [x] ESP-IDF firmware skeleton with UI screen routing stubs
 
-### Phase 1 — Desk prototype (current)
+### Phase 1 — Desk prototype
 
 Goal: prove the display and phone can talk before adding real navigation.
 
-- [x] Flash ESP32-S3 round display and bring up LVGL
+- [x] Flash ESP32-S3 round display and bring up LVGL (code complete — verify on hardware)
 - [x] Render static ride UI (speed, maneuver arrow, distance, street name)
 - [x] Feed fake speed/navigation data on-device
 - [x] Implement BLE GATT server on display
@@ -71,12 +83,12 @@ Goal: prove the display and phone can talk before adding real navigation.
 - [x] Send mock `DashboardState` from phone → display
 - [x] Verify all four screens: waiting, no-route, ride, error/reconnecting
 
-### Phase 2 — V1 MVP (ride-ready)
+### Phase 2 — V1 MVP (ride-ready, in progress)
 
 Goal: a working navigation companion you can test in a car, then on the bike.
 
-- [ ] Wire live GPS speed from phone to display
-- [ ] Integrate Mapbox Navigation SDK (turn-by-turn active guidance)
+- [x] Wire live GPS speed from phone (home screen + navigation preview)
+- [x] Integrate Mapbox Navigation SDK (turn-by-turn on phone)
 - [ ] Stream real maneuver, distance, street name, and ETA over BLE
 - [ ] Automatic BLE reconnect after power loss
 - [ ] Smooth UI updates at riding speeds

@@ -71,6 +71,10 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>RidePuck needs Bluetooth to connect to your dashboard display.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>RidePuck uses location for GPS speed and navigation in later phases.</string>
+	<string>RidePuck uses your location for GPS speed and turn-by-turn navigation.</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>MBXAccessToken</key>
+	<string>$(MAPBOX_ACCESS_TOKEN)</string>
 </dict>
 </plist>

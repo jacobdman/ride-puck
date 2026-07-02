@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../config/mapbox_config.dart';
+import '../screens/navigation_screen.dart';
 import '../services/ble_service.dart';
-import '../services/dashboard_state_builder.dart';
+import '../services/gps_service.dart';
 
-/// Entry screen — connection status and mock dashboard controls for desk testing.
+/// Entry screen — connection status and phone-side test controls.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,9 +15,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final BleService _bleService = BleService();
+  final GpsService _gpsService = GpsService();
+
   bool _sendingMock = false;
   bool _connecting = false;
   String? _statusMessage;
+  GpsSnapshot _gps = GpsSnapshot.unavailable();
+  String? _gpsError;
 
   @override
   void initState() {
@@ -31,16 +37,41 @@ class _HomeScreenState extends State<HomeScreen> {
         _statusMessage = connected ? 'Connected to RidePuck display' : null;
       });
     });
+    _startGps();
+  }
+
+  Future<void> _startGps() async {
+    await _gpsService.start();
+    _gpsService.snapshots.listen((snapshot) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _gps = snapshot;
+        _gpsError = _gpsService.error;
+      });
+    });
+    if (mounted) {
+      setState(() {
+        _gps = _gpsService.latest;
+        _gpsError = _gpsService.error;
+      });
+    }
   }
 
   @override
   void dispose() {
     _bleService.dispose();
+    _gpsService.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final gpsStatus = _gps.available
+        ? '${_gps.speedMph.round()} MPH'
+        : (_gpsError ?? 'Waiting for GPS');
+
     return Scaffold(
       appBar: AppBar(title: const Text('RidePuck')),
       body: Padding(
@@ -53,9 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 32),
+            _StatusCard(label: 'GPS', value: gpsStatus),
+            const SizedBox(height: 12),
+            _StatusCard(label: 'Mapbox', value: MapboxConfig.statusLabel),
+            const SizedBox(height: 12),
             _StatusCard(
               label: 'BLE',
               value: _bleService.isConnected ? 'Connected' : 'Disconnected',
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'BLE requires RidePuck display hardware.',
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             if (_statusMessage != null) ...[
               const SizedBox(height: 12),
@@ -73,6 +113,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             const Spacer(),
             FilledButton(
+              onPressed: MapboxConfig.isConfigured
+                  ? () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => NavigationScreen(gpsService: _gpsService),
+                        ),
+                      );
+                    }
+                  : null,
+              child: const Text('Start navigation'),
+            ),
+            const SizedBox(height: 12),
+            FilledButton.tonal(
               onPressed: _bleService.isConnected && !_connecting ? _toggleMockStream : null,
               child: Text(_sendingMock ? 'Stop mock data' : 'Send mock dashboard state'),
             ),
@@ -160,7 +213,12 @@ class _StatusCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label, style: Theme.of(context).textTheme.titleMedium),
-            Text(value),
+            Flexible(
+              child: Text(
+                value,
+                textAlign: TextAlign.end,
+              ),
+            ),
           ],
         ),
       ),
